@@ -35,6 +35,7 @@ class BookManagerTest {
 		assertEquals(1, m.SearchBook(3), "search failed");
 		assertEquals(1, m.SearchBook(4), "search failed");
 		assertEquals(0, m.SearchBook(5), "search failed");
+		assertEquals(0, m.SearchBook(5), "search failed");
 		
 	}
 
