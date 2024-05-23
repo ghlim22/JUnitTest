@@ -45,10 +45,14 @@ class BookManagerTest {
 		m.AddBook(2, "자바 심화", "jane", 2023);
 		m.AddBook(3, "C 언어 기초", "Kim", 1993);
 		m.AddBook(4, "디자인 패턴" , "Park", 2020);
+		m.AddBook(5, "Agile", "James", 2018);
+		
 		assertEquals(1, m.RemoveBook(1), "remove failed");
 		assertEquals(1, m.RemoveBook(2), "remove failed");
 		assertEquals(1, m.RemoveBook(3), "remove failed");
 		assertEquals(1, m.RemoveBook(4), "remove failed");
+		assertEquals(1, m.RemoveBook(5), "remove failed");
+		
 		assertEquals(0, m.SearchBook(1), "remove failed");
 		assertEquals(0, m.SearchBook(2), "remove failed");
 		assertEquals(0, m.SearchBook(3), "remove failed");
