@@ -20,6 +20,8 @@ class BookManagerTest {
 		assertEquals(0, m.AddBook(2, "C 언어 기초", "Kim", 1993), "add failed");
 		assertEquals(1, m.AddBook(3, "디자인 패턴" , "Park", 2020), "add failed");
 		assertEquals(0, m.AddBook(3, "디자인 패턴" , "Park", 2020), "duplicated");
+		assertEquals(1, m.SearchBook(1), "add failed");
+		assertEquals(0, m.SearchBook(5), "add failed");
 	}
 
 	@Test
