@@ -16,7 +16,7 @@ pipeline
 		{
 			steps
 			{
-				sh 'javac -encoding UTF-8 -d classes Practice/src/**/*.java'
+				sh 'javac -encoding UTF-8 -d classes src/**/*.java'
 			}
 		}
 
