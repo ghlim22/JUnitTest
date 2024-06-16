@@ -44,7 +44,7 @@ public class BookManager {
             }
         }
         
-        // If we reach here, the new book has the highest ID and should be added to the end
+        // The new book has the highest ID
         mBookList.add(newBook);
         System.out.println(newBook + " has been added.");
     }
