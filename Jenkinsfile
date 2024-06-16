@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'javac -encoding UTF-8 -d classes src/**/*.java'
+                sh 'javac -encoding UTF-8 -d classes src/*.java'
             }
         }
 
