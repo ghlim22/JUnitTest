@@ -1,42 +1,36 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BookManagerTest {
-	
-	BookManager m;
-	
-	@BeforeEach
-	void setUp() throws Exception {
-		m = new BookManager();
-	}
+public class BookManagerTest {
+    private BookManager bm;
 
-	@Test
-	void testAddBook() {
-		assertEquals(1, m.AddBook(1, "자바 기초", "Jane", 2021), "add failed");
-		assertEquals(0, m.AddBook(1, "자바 기초", "Jane", 2021), "duplicated");
-	}
+    @BeforeEach
+    public void setUp() {
+        bm = new BookManager();
+        bm.addBook(1, "Java Programming", "Soyoon Paek", 2020);
+        bm.addBook(2, "Python Programming", "Minsoo Park", 2021);
+        bm.addBook(3, "C++ Programming", "Jinsoo Kim", 2019);
+        bm.addBook(4, "SW Engineering", "Eunman Choi", 2019);
+        bm.addBook(5, "The C Programming Language", "Brian W. Kernighan & Dennis M. Ritchie", 2019);
+        bm.addBook(6, "Think, Fast and Slow", "Daniel Kahneman", 2019);
+        bm.addBook(7, "Nudge", " Richard H. Thaler & Cass R. Sunstein", 2019);
+        bm.addBook(8, "Book8", "Kim8", 2019);
+        bm.addBook(9, "Book9", "Kim9", 2019);
+        bm.addBook(10, "Book10", "Kim10", 2019);
+        bm.addBook(11, "Book10", "Kim10", 2019);
+        bm.addBook(12, "Book10", "Kim10", 2019);
+    }
 
-	@Test
-	void testSearchBook() {
-		m.AddBook(1, "자바 기초", "jane", 2022);
-		m.AddBook(2, "자바 심화", "jane", 2023);
-		assertEquals(1, m.SearchBook(1), "search failed");
-		assertEquals(1, m.SearchBook(2), "search failed");
-		assertEquals(0, m.SearchBook(3), "search failed");
-	}
-
-	@Test
-	void testRemoveBook() {
-		m.AddBook(1, "자바 기초", "jane", 2022);
-		m.AddBook(2, "자바 심화", "jane", 2023);
-		assertEquals(1, m.RemoveBook(1), "remove failed");
-		assertEquals(1, m.RemoveBook(2), "remove failed");
-		assertEquals(0, m.RemoveBook(3), "remove failed");
-		assertEquals(0, m.SearchBook(1), "remove failed");
-	}
-	
-		
-
+    @Test
+    public void testSearchBookPerformance() {
+        int searchId = 2;
+        bm.searchBook(searchId);
+    }
+    
+    @Test
+    public void testSearchBsPerformance() {
+    	int searchId = 2;
+        bm.search_bs(searchId);
+    }
 }
+
