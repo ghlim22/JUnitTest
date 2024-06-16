@@ -1,8 +1,7 @@
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.Arrays;
 
 public class BookManager {
-    private class Book {
+    public class Book implements Comparable<Book> {
         int mID;
         String mTitle;
         String mAuthor;
@@ -19,63 +18,46 @@ public class BookManager {
         public String toString() {
             return "Book { id: " + mID + ", title: " + mTitle + ", author: " + mAuthor + ", printed year: " + mYear + " }";
         }
+
+        @Override
+        public int compareTo(Book other) {
+            return Integer.compare(this.mID, other.mID);
+        }
     }
 
-    private LinkedList<Book> mBookList;
+    private Book[] mBookArray;
+    private int size;
 
     public BookManager() {
-        mBookList = new LinkedList<>();
+        mBookArray = new Book[10];
+        size = 0;
     }
 
     public void addBook(int id, String title, String author, int year) {
-        Book newBook = new Book(id, title, author, year);
-        
-        ListIterator<Book> iterator = mBookList.listIterator();
-        while (iterator.hasNext()) {
-            Book currentBook = iterator.next();
-            if (currentBook.mID == id) {
-                System.out.println("The book with id (" + id + ") already exists.");
-                return;
-            } else if (currentBook.mID > id) {
-                iterator.previous();  // Step back to the correct insertion point
-                iterator.add(newBook);
-                System.out.println(newBook + " has been added.");
-                return;
-            }
+        if (size == mBookArray.length) {
+            mBookArray = Arrays.copyOf(mBookArray, mBookArray.length * 2);
         }
         
-        // The new book has the highest ID
-        mBookList.add(newBook);
+        Book newBook = new Book(id, title, author, year);
+
+        int insertIndex = Arrays.binarySearch(mBookArray, 0, size, newBook);
+        if (insertIndex >= 0) {
+            System.out.println("The book with id (" + id + ") already exists.");
+            return;
+        }
+        
+        insertIndex = -insertIndex - 1;
+
+        System.arraycopy(mBookArray, insertIndex, mBookArray, insertIndex + 1, size - insertIndex);
+        mBookArray[insertIndex] = newBook;
+        size++;
         System.out.println(newBook + " has been added.");
     }
 
     public void searchBook(int id) {
-        for (Book b : mBookList) {
-            if (b.mID == id) {
-                System.out.println("Search result: " + b);
-                return;
-            }
-        }
-        System.out.println("No book found with the given id.");
-    }
-
-    public void removeBook(int id) {
-        ListIterator<Book> iterator = mBookList.listIterator();
-        while (iterator.hasNext()) {
-            Book b = iterator.next();
-            if (b.mID == id) {
-                iterator.remove();
-                System.out.println(b + " has been removed.");
-                return;
-            }
-        }
-        System.out.println("No book found with the given id.");
-    }
-    
-    public void search_bs(int id) {
         int index = binarySearch(id);
-        if (index != -1) {
-            System.out.println("Search result: " + mBookList.get(index));
+        if (index >= 0) {
+            System.out.println("Search result: " + mBookArray[index]);
         } else {
             System.out.println("No book found with the given id.");
         }
@@ -83,15 +65,13 @@ public class BookManager {
 
     private int binarySearch(int id) {
         int left = 0;
-        int right = mBookList.size() - 1;
+        int right = size - 1;
 
         while (left <= right) {
             int mid = (left + right) / 2;
-            Book midBook = mBookList.get(mid);
-            
-            if (midBook.mID == id) {
+            if (mBookArray[mid].mID == id) {
                 return mid;
-            } else if (midBook.mID < id) {
+            } else if (mBookArray[mid].mID < id) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
@@ -101,11 +81,24 @@ public class BookManager {
         return -1;  // ID not found
     }
 
+    public void removeBook(int id) {
+        int index = binarySearch(id);
+        if (index >= 0) {
+            Book removedBook = mBookArray[index];
+            System.arraycopy(mBookArray, index + 1, mBookArray, index, size - index - 1);
+            size--;
+            mBookArray[size] = null;  // Clear reference for garbage collection
+            System.out.println(removedBook + " has been removed.");
+        } else {
+            System.out.println("No book found with the given id.");
+        }
+    }
+
     public static void main(String[] args) {
         BookManager bm = new BookManager();
-        bm.addBook(1, "Java Programming", "Soyoon Paek", 2020);
-        bm.addBook(3, "Python Programming", "Minsoo Park", 2021);
-        bm.addBook(2, "C++ Programming", "Jinsoo Kim", 2019);
+        bm.addBook(1, "Java Programming", "John Doe", 2020);
+        bm.addBook(3, "Python Programming", "Jane Doe", 2021);
+        bm.addBook(2, "C++ Programming", "Jim Beam", 2019);
 
         bm.searchBook(1);
         bm.searchBook(3);
@@ -115,3 +108,4 @@ public class BookManager {
         bm.removeBook(3);
     }
 }
+

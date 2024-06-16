@@ -1,36 +1,57 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class BookManagerTest {
     private BookManager bm;
+    private long startTime;
+    private static final long TEST_SIZE = 10000;
+    
+    @BeforeAll
+    public static void printInfo() {
+    	System.out.println("Test size: " + TEST_SIZE);
+    }
 
     @BeforeEach
     public void setUp() {
         bm = new BookManager();
-        bm.addBook(1, "Java Programming", "Soyoon Paek", 2020);
-        bm.addBook(2, "Python Programming", "Minsoo Park", 2021);
-        bm.addBook(3, "C++ Programming", "Jinsoo Kim", 2019);
-        bm.addBook(4, "SW Engineering", "Eunman Choi", 2019);
-        bm.addBook(5, "The C Programming Language", "Brian W. Kernighan & Dennis M. Ritchie", 2019);
-        bm.addBook(6, "Think, Fast and Slow", "Daniel Kahneman", 2019);
-        bm.addBook(7, "Nudge", " Richard H. Thaler & Cass R. Sunstein", 2019);
-        bm.addBook(8, "Book8", "Kim8", 2019);
-        bm.addBook(9, "Book9", "Kim9", 2019);
-        bm.addBook(10, "Book10", "Kim10", 2019);
-        bm.addBook(11, "Book10", "Kim10", 2019);
-        bm.addBook(12, "Book10", "Kim10", 2019);
+        for (int i = 0; i < TEST_SIZE; ++i) {
+        	bm.addBook(i, "Java Programming", "Soyoon Paek", 2020);
+    	}
+        //startTime = System.currentTimeMillis();
     }
-
+    
+    @AfterEach
+    public void measurePerformance() {
+//    	long endTime = System.currentTimeMillis();
+//    	long msElapsed = endTime - startTime;
+//    	System.out.println("elapsed time(ms): " + msElapsed);
+    }
+    
     @Test
     public void testSearchBookPerformance() {
-        int searchId = 2;
-        bm.searchBook(searchId);
+    	System.out.println("Linear Search");
+    	final long start = System.currentTimeMillis();
+    	for (int i = 0; i < TEST_SIZE; ++i) {
+    	    bm.searchBook(i);
+    	}
+    	final long end = System.currentTimeMillis();
+    	long msElapsed = end - start;
+    	System.out.println("elapsed time(ms): " + msElapsed);
+    	
     }
     
     @Test
     public void testSearchBsPerformance() {
-    	int searchId = 2;
-        bm.search_bs(searchId);
+    	System.out.println("Binary Search");
+    	final long start = System.currentTimeMillis();
+    	for (int i = 0; i < TEST_SIZE; ++i) {
+    	    bm.search_bs(i);
+    	}
+    	final long end = System.currentTimeMillis();
+    	final long msElapsed = end - start;
+    	System.out.println("elapsed time(ms): " + msElapsed);
     }
 }
 
