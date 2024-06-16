@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+				cleanWs()
+                checkout scm: [$class: 'GitSCM', branches: [[name: '*/master']]]
             }
         }
 
