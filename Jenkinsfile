@@ -21,8 +21,8 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def classpath = "classes:lib/junit-platform-console-standalone-1.7.1.jar:lib/junit-jupiter-api-5.7.1.jar:lib/junit-jupiter-engine-5.7.1.jar"
-                    def command = isUnix() ? "java -cp $classpath org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt" : "java -cp $classpath org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
+                   // def classpath = "classes:lib/junit-platform-console-standalone-1.7.1.jar:lib/junit-jupiter-api-5.7.1.jar:lib/junit-jupiter-engine-5.7.1.jar"
+                    def command = isUnix() ? "java -cp org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt" : "java -cp $classpath org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
                     if (isUnix()) {
                         sh command
                     } else {
