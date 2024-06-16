@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -11,17 +10,16 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'javac -encoding UTF-8 -d classes src/*.java'
+                sh 'javac -encoding UTF-8 -d classes -cp "lib/junit-platform-console-standalone-1.7.1.jar:lib/junit-jupiter-api-5.7.1.jar" src/BookManager.java src/BookManagerTest.java'
             }
         }
 
         stage('Test') {
             steps {
                 script {
-                    def os = isUnix() ? 'Unix' : 'Windows'
-                    def classpath = os == 'Unix' ? 'classes:lib/:path/to/eclipse/plugins/junit-platform-console-standalone-1.7.1.jar' : 'classes;lib/;path/to/eclipse/plugins/junit-platform-console-standalone-1.7.1.jar'
-                    def command = os == 'Unix' ? "java -cp $classpath org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt" : "java -cp $classpath org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
-                    if (os == 'Unix') {
+                    def classpath = "classes:lib/junit-platform-console-standalone-1.7.1.jar:lib/junit-jupiter-api-5.7.1.jar:lib/junit-jupiter-engine-5.7.1.jar"
+                    def command = isUnix() ? "java -cp $classpath org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt" : "java -cp $classpath org.junit.platform.console.ConsoleLauncher --scan-classpath > test_results.txt"
+                    if (isUnix()) {
                         sh command
                     } else {
                         bat command
@@ -43,3 +41,4 @@ pipeline {
         }
     }
 }
+
