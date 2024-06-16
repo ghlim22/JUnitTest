@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-hello, world! herererer
-=======
-I way ready
->>>>>>> branch 'master' of git@github.com:ghlim22/JUnitTest.git
