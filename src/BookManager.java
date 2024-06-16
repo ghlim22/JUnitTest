@@ -42,7 +42,7 @@ public class BookManager {
 
         int insertIndex = Arrays.binarySearch(mBookArray, 0, mSize, newBook);
         if (insertIndex >= 0) {
-            System.out.println("The book with id (" + id + ") already exists.");
+            // System.out.println("The book with id (" + id + ") already exists.");
             return;
         }
         
@@ -51,26 +51,29 @@ public class BookManager {
         System.arraycopy(mBookArray, insertIndex, mBookArray, insertIndex + 1, mSize - insertIndex);
         mBookArray[insertIndex] = newBook;
         mSize++;
-        System.out.println(newBook + " has been added.");
+        // System.out.println(newBook + " has been added.");
     }
     
     // Linear search
-    public void search(int id) {  
+    public boolean search(int id) {  
         for (int i = 0; i < mSize; ++i) {
         	if (mBookArray[i].mID == id) {
-        		System.out.println("Search result: " + mBookArray[i]);
-        		return;
+        		//System.out.println("Search result: " + mBookArray[i]);
+        		return true;
             }
         }
-        System.out.println("No book found with the given id.");
+        //System.out.println("No book found with the given id.");
+        return false;
     }
 
-    public void search_bs(int id) {
+    public boolean search_bs(int id) {
         int index = binarySearch(id);
         if (index >= 0) {
-            System.out.println("Search result: " + mBookArray[index]);
+            // System.out.println("Search result: " + mBookArray[index]);
+        	return true;
         } else {
-            System.out.println("No book found with the given id.");
+            // System.out.println("No book found with the given id.");
+        	return false;
         }
     }
 
@@ -98,7 +101,7 @@ public class BookManager {
             Book removedBook = mBookArray[index];
             System.arraycopy(mBookArray, index + 1, mBookArray, index, mSize - index - 1);
             mSize--;
-            mBookArray[mSize] = null;  // Clear reference for garbage collection
+            mBookArray[mSize] = null;
             System.out.println(removedBook + " has been removed.");
         } else {
             System.out.println("No book found with the given id.");
