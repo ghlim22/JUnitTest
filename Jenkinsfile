@@ -39,11 +39,11 @@ pipeline
 		}
 		failure 
 		{ 
-			echo ‘Build or test failed' 
+			echo 'Build or test failed' 
 		}
         success 
 		{
-			echo ‘Build and test succeeded'
+			echo 'Build and test succeeded'
 		}
 	}
 }
