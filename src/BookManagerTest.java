@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 
 public class BookManagerTest {
     private BookManager bm;
-    private static final long TEST_SIZE = 10000;
+    private static final long TEST_SIZE = 42000;
     
     @BeforeAll
     public static void printInfo() {
